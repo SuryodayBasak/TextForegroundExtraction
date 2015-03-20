@@ -14,9 +14,9 @@ kernel2 = np.ones((3,3),np.uint8)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
+#img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 
-#img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
 cv2.imshow('original', img)
 
 blur=cv2.medianBlur(img,5)
@@ -24,6 +24,7 @@ blur=cv2.medianBlur(img,5)
 mask1 = np.ones(img.shape[:2],np.uint8)
 
 cl1 = clahe.apply(blur)
+
 cv2.imshow('cl1', cl1)
 
 circles_mask = cv2.dilate(cl1,kernel1,iterations = 6)
@@ -63,7 +64,13 @@ finalg = 255 - finalg
 
 abso = cv2.bitwise_and(dilation,dilation,mask=finalg) 
 cv2.imshow('abso', abso)
-#cv2.imwrite('res_book.jpg',display)
+
+finalg = cv2.dilate(finalg,kernel1,iterations = 1)
+finalg = cv2.erode(finalg,kernel1,iterations = 1)
+
+abso = cv2.bitwise_and(abso,abso,mask=finalg) 
+cv2.imshow('abso', abso)
+cv2.imwrite('res_book_binary.jpg',abso)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
