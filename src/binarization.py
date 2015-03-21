@@ -5,7 +5,6 @@ Created on Thu Mar 19 21:43:08 2015
 
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
 kernel1 = np.ones((5,5),np.uint8)
 kernel2 = np.ones((3,3),np.uint8)
@@ -65,16 +64,19 @@ def binary_img(img):
     
     abso = cv2.bitwise_and(dilation,dilation,mask=finalg) 
     cv2.imshow('abso', abso)
-
+    """
     finalg = cv2.dilate(finalg,kernel1,iterations = 1)
     finalg = cv2.erode(finalg,kernel1,iterations = 1)
 
     abso = cv2.bitwise_and(abso,abso,mask=finalg) 
     cv2.imshow('abso', abso)
+    """
+    
+    return abso
 
 #cv2.imwrite('res_book_binary.jpg',abso)
 
-binary_img(img)
+#binary_img(img)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
