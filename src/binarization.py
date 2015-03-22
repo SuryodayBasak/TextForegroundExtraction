@@ -12,13 +12,12 @@ clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
-
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
 
 def binary_img(img):
-    cv2.imshow('original', img)
+    #cv2.imshow('original', img)
     img_erode = cv2.dilate(img,kernel1,iterations = 6)
-    cv2.imshow('img_erode', img_erode)
+    #cv2.imshow('img_erode', img_erode)
     blur=cv2.medianBlur(img,5)
 
     mask1 = np.ones(img.shape[:2],np.uint8)
@@ -29,19 +28,19 @@ def binary_img(img):
 
     circles_mask = cv2.dilate(cl1,kernel1,iterations = 6)
     circles_mask = (255-circles_mask)
-    cv2.imshow('circles_mask', circles_mask)
+    #cv2.imshow('circles_mask', circles_mask)
     thresh = 1
     circles_mask = cv2.threshold(circles_mask, thresh, 255, cv2.THRESH_BINARY)[1]
 
     edges = cv2.Canny(cl1,100,200)
-    cv2.imshow('edges', edges)
+    #cv2.imshow('edges', edges)
     edges = cv2.bitwise_and(edges,edges,mask=circles_mask) 
 
     dilation = cv2.dilate(edges,kernel1,iterations = 1)
-    cv2.imshow('dilation', dilation)
+    #cv2.imshow('dilation', dilation)
 
     display = cv2.bitwise_and(img,img,mask=dilation) 
-    cv2.imshow('display', display)
+    #cv2.imshow('display', display)
     cl2 = clahe.apply(display)
     cl2 = clahe.apply(cl2)
 
@@ -50,20 +49,20 @@ def binary_img(img):
 
     thg = cv2.adaptiveThreshold(display,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,11,2)
-    cv2.imshow('thg', thg)
+    #cv2.imshow('thg', thg)
 
-    cv2.imshow('th', th)
+    #cv2.imshow('th', th)
 
     final = cv2.bitwise_and(dilation,dilation,mask=th) 
-    cv2.imshow('final', final)
+    #cv2.imshow('final', final)
 
     finalg = cv2.bitwise_and(dilation,dilation,mask=thg) 
-    cv2.imshow('finalg', finalg)
+    #cv2.imshow('finalg', finalg)
 
     finalg = 255 - finalg
     
     abso = cv2.bitwise_and(dilation,dilation,mask=finalg) 
-    cv2.imshow('abso', abso)
+    #cv2.imshow('abso', abso)
     """
     finalg = cv2.dilate(finalg,kernel1,iterations = 1)
     finalg = cv2.erode(finalg,kernel1,iterations = 1)
@@ -75,7 +74,6 @@ def binary_img(img):
     return abso
 
 #cv2.imwrite('res_book_binary.jpg',abso)
-
 #binary_img(img)
 
 cv2.waitKey(0)

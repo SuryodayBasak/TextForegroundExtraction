@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Mar 19 21:43:08 2015
+Created on Fri Mar 20 17:24:24 2015
 
 @author: suryo
 """
@@ -13,12 +13,13 @@ kernel1 = np.ones((5,5),np.uint8)
 kernel2 = np.ones((3,3),np.uint8)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
-#img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
+#img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
 cv2.imshow('original', img)
-
+img_erode = cv2.dilate(img,kernel1,iterations = 6)
+cv2.imshow('img_erode', img_erode)
 blur=cv2.medianBlur(img,5)
 
 mask1 = np.ones(img.shape[:2],np.uint8)
@@ -31,7 +32,9 @@ circles_mask = cv2.dilate(cl1,kernel1,iterations = 6)
 circles_mask = (255-circles_mask)
 cv2.imshow('circles_mask', circles_mask)
 thresh = 1
-circles_mask = cv2.threshold(circles_mask, thresh, 255, cv2.THRESH_BINARY)[1]
+circles_mask = cv2.threshold(img_erode, thresh, 255, cv2.THRESH_BINARY)[1]
+circles_mask = (255-circles_mask)
+cv2.imshow('circles_mask', circles_mask)
 
 edges = cv2.Canny(cl1,100,200)
 cv2.imshow('edges', edges)
@@ -70,7 +73,7 @@ finalg = cv2.erode(finalg,kernel1,iterations = 1)
 
 abso = cv2.bitwise_and(abso,abso,mask=finalg) 
 cv2.imshow('abso', abso)
-cv2.imwrite('res_book_binary.jpg',abso)
+#cv2.imwrite('res_book_binary.jpg',abso)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
