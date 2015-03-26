@@ -8,7 +8,7 @@ Created on Sat Mar 21 22:07:06 2015
 import cv2
 import binarization
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/2.jpg',0)
 binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
 

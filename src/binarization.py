@@ -17,7 +17,7 @@ img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 def binary_img(img):
     #cv2.imshow('original', img)
     #reduce this
-    img_erode = cv2.dilate(img,kernel1,iterations = 6)
+    img_erode = cv2.dilate(img,kernel1,iterations = 1)
     #cv2.imshow('img_erode', img_erode)
     blur=cv2.medianBlur(img,5)
 
@@ -27,7 +27,7 @@ def binary_img(img):
 
     cv2.imshow('cl1', cl1)
 
-    circles_mask = cv2.dilate(cl1,kernel1,iterations = 6)
+    circles_mask = cv2.dilate(cl1,kernel1,iterations = 1)
     circles_mask = (255-circles_mask)
     #cv2.imshow('circles_mask', circles_mask)
     thresh = 1
