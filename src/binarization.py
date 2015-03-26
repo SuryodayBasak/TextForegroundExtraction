@@ -17,7 +17,7 @@ img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 def binary_img(img):
     #cv2.imshow('original', img)
     #reduce this
-    img_erode = cv2.dilate(img,kernel1,iterations = 1)
+    img_erode = cv2.dilate(img,kernel1,iterations = 2)
     #cv2.imshow('img_erode', img_erode)
     blur=cv2.medianBlur(img,5)
 
