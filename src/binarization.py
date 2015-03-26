@@ -10,7 +10,7 @@ kernel1 = np.ones((5,5),np.uint8)
 kernel2 = np.ones((3,3),np.uint8)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
+#img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/1.jpg',0)
 #img = cv2.imread('/home/suryo/Image_Processing_Exercises/resources/book2/o8.jpg',0)
 
