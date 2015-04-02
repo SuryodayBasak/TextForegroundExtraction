@@ -23,6 +23,7 @@ for i in range(0,height):
             all_white_pixels.append([i,j])
             
 print all_white_pixels
+matrix = np.array(all_white_pixels)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
