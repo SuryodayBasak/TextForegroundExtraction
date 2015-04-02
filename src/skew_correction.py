@@ -4,6 +4,7 @@
 
 import cv2
 import binarization
+import numpy as np
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
 binary = binarization.binary_img(img)
@@ -11,7 +12,7 @@ cv2.imshow('binary', binary)
 
 height, width = img.shape[:2]
 
-matrix = []
+all_white_pixels = []
 
 print height
 print width
@@ -19,9 +20,9 @@ print width
 for i in range(0,height):
     for j in range(0,width):
         if(binary.item(i,j)==255):
-            matrix.append([i,j])
+            all_white_pixels.append([i,j])
             
-print matrix
+print all_white_pixels
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
