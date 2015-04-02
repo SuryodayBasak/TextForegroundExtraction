@@ -19,7 +19,7 @@ print width
 for i in range(0,height):
     for j in range(0,width):
         if(binary.item(i,j)==255):
-            matrix.append((i,j))
+            matrix.append([i,j])
             
 print matrix
 
