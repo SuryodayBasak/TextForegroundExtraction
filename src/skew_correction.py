@@ -41,14 +41,8 @@ print eigenvalues
 print eigenvectors
 
 max_ev = max(eigenvalues)
-max_index = 0
-i = 0
-
-#fix this
-for i in range(0,1):
-    if (eigenvalues[i] == max_ev):
-        max_index = i
-   
+max_index =  eigenvalues.argmax(axis=0)
+#print type(eigenvalues)
 print max_ev
 print max_index
 
