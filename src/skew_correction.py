@@ -26,8 +26,8 @@ for i in range(0,height):
 #print all_white_pixels
 matrix = np.array(all_white_pixels)
 
-row_mean = matrix.mean(axis=1) 
-col_mean = matrix.mean(axis=0) 
+#row_mean = matrix.mean(axis=1) 
+#col_mean = matrix.mean(axis=0) 
 
 #print row_mean
 #print col_mean
