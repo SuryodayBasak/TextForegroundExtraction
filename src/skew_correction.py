@@ -35,5 +35,10 @@ col_mean = matrix.mean(axis=0)
 C = np.cov(matrix.T)
 print C
 
+eigenvalues, eigenvectors = np.linalg.eig(C)
+
+print eigenvalues
+print eigenvectors
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
