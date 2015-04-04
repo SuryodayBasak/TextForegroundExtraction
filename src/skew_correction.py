@@ -40,5 +40,8 @@ eigenvalues, eigenvectors = np.linalg.eig(C)
 print eigenvalues
 print eigenvectors
 
+max_ev = max(eigenvalues)
+print max_ev
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
