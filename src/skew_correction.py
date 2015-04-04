@@ -41,7 +41,16 @@ print eigenvalues
 print eigenvectors
 
 max_ev = max(eigenvalues)
+max_index = 0
+i = 0
+
+#fix this
+for i in range(0,1):
+    if (eigenvalues[i] == max_ev):
+        max_index = i
+   
 print max_ev
+print max_index
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
