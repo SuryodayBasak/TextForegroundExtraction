@@ -5,11 +5,15 @@
 import cv2
 import binarization
 import numpy as np
+kernel = np.ones((5,5),np.uint8)
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
 cv2.imshow('original', img)
 binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
+
+dil = cv2.dilate(binary,kernel,iterations = 1)
+cv2.imshow('dil', dil)
 
 height, width = img.shape[:2]
 
