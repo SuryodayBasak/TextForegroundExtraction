@@ -12,7 +12,7 @@ cv2.imshow('original', img)
 binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
 
-dil = cv2.dilate(binary,kernel,iterations = 1)
+dil = cv2.dilate(binary,kernel,iterations = 3)
 cv2.imshow('dil', dil)
 
 height, width = img.shape[:2]
@@ -24,7 +24,7 @@ print width
 
 for i in range(0,height):
     for j in range(0,width):
-        if(binary.item(i,j)==255):
+        if(dil.item(i,j)==255):
             all_white_pixels.append([i,j])
             
 #print all_white_pixels
