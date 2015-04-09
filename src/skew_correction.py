@@ -11,10 +11,10 @@ img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu1
 cv2.imshow('original', img)
 binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
-"""
-dil = cv2.dilate(binary,kernel,iterations = 3)
+
+dil = cv2.dilate(binary,kernel,iterations = 1)
 cv2.imshow('dil', dil)
-"""
+
 
 height, width = img.shape[:2]
 
