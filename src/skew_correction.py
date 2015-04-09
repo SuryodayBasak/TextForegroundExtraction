@@ -53,11 +53,20 @@ print max_index
 
 print (eigenvectors[1,max_index]/eigenvectors[0,max_index])*(180/np.pi)
 #print math.atan2((eigenvectors[1,max_index],eigenvectors[0,max_index]))*(180/np.pi)
+
 y = eigenvectors[1,max_index]
 x = eigenvectors[0,max_index]
-angle = np.arctan2(y,x)*(180/np.pi)
 
-M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
+"""
+y = eigenvectors[max_index,1]
+x = eigenvectors[max_index,0]
+"""
+angle = (np.arctan2(y,x))*(180/np.pi)
+
+print angle
+
+#M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
+M = cv2.getRotationMatrix2D((width/2,height/2),-angle,1)
 dst = cv2.warpAffine(binary,M,(width,height))
 
 print type(dst)
