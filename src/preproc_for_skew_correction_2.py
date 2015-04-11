@@ -87,6 +87,7 @@ dst = cv2.warpAffine(img,M,(width,height))
 print type(dst)
 
 cv2.imshow('dst', dst)
+dst = binarization.binary_img(dst)
 cv2.imwrite('skewcorrected.jpg',dst)
 
 
