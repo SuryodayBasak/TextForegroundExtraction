@@ -25,8 +25,8 @@ cnt=contours[max_index]
 
 print max_index
 
-binary = cv2.drawContours(binary, contours, max_index-1, (0,255,0), 3)
-cv2.imshow('largest', binary)
+cv2.drawContours(mask, contours, max_index-1, (0,255,0), 3)
+cv2.imshow('largest', mask)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
