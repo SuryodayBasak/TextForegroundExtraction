@@ -81,13 +81,13 @@ angle = (np.arctan2(y,x))*(180/np.pi)
 print angle
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
-M = cv2.getRotationMatrix2D((width/2,height/2),-angle,1)
-dst = cv2.warpAffine(binary,M,(width,height))
+M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
+dst = cv2.warpAffine(img,M,(width,height))
 
 print type(dst)
 
 cv2.imshow('dst', dst)
-#cv2.imwrite('skewcorrected.jpg',dst)
+cv2.imwrite('skewcorrected.jpg',dst)
 
 
 
