@@ -97,8 +97,11 @@ def skew_correction(img):
     dst = cv2.warpAffine(img,M,(width,height))
 
     dst = binary_img(dst)
+    
+    return dst
 
-def
+def preprocess(img):
+    return skew_correction(img)
 
 
 cv2.waitKey(0)
