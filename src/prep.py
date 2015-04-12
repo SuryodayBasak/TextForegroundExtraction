@@ -3,6 +3,14 @@
 Created on Sun Apr 12 15:09:51 2015
 
 @author: suryo
+
+Python module for preprocessing images of Indain manuscriptsfor further
+processing and pattern matching.
+
+This python module can perform the following functions:
+
+1. Binarization - method binary_img(img) performs this function
+2. Skew correction - method skew_correction(img) performs this function
 """
 
 import cv2
@@ -12,6 +20,15 @@ kernel1 = np.ones((5,5),np.uint8)
 kernel2 = np.ones((3,3),np.uint8)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
+"""
+Method to binarize an image
+
+Input: RGB image
+Output: Binary image
+
+The nature of the output is such that the text(foreground) has a colour 
+value of (255,255,255), and the background has a value of (0,0,0).
+"""
 def binary_img(img):
 
     img_erode = cv2.dilate(img,kernel1,iterations = 2)
@@ -54,9 +71,15 @@ def binary_img(img):
     
     return abso
     
-    
-    
-    
+"""
+Method to correct the skew of an image
+
+Input: Binary image
+Output: Skew corrected binary image
+
+The nature of the output is such that the binary image is rotated appropriately
+to remove any angular skew.
+"""
     
 def skew_correction(img):
     largest_contour = np.zeros(img.shape[:2],np.uint8)
