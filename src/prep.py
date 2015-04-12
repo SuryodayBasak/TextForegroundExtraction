@@ -35,7 +35,7 @@ def binary_img(img):
     blur=cv2.medianBlur(img,5)
 
     mask1 = np.ones(img.shape[:2],np.uint8)
-
+    """Applying histogram equalization"""
     cl1 = clahe.apply(blur)
 
     circles_mask = cv2.dilate(cl1,kernel1,iterations = 1)
@@ -89,7 +89,12 @@ def skew_correction(img):
     areas = [cv2.contourArea(c) for c in contours]
     max_index = np.argmax(areas)
     cnt=contours[max_index]
-
+    
+    """After the next step, we'll have the largest word in the image.
+    Since all the words in different lines have to be parallel to each other,
+    we'll take the largest word as the reference and find out it's alighment.
+    We'll rotate the entire image accordingly"""
+    
     cv2.drawContours(largest_contour, contours, max_index, (255,255,255), 2)
 
     height, width = largest_contour.shape[:2]
@@ -103,14 +108,21 @@ def skew_correction(img):
             
 
     matrix = np.array(all_white_pixels)
-
+    
+    """Finding covariance matrix"""
     C = np.cov(matrix.T)
 
     eigenvalues, eigenvectors = np.linalg.eig(C)
 
+    """Finding max eigenvalue"""
     max_ev = max(eigenvalues)
+    """Finding index of max eigenvalue"""
     max_index =  eigenvalues.argmax(axis=0)
 
+    """The largest eigen value gives the approximate length of the bounding
+    ellipse around the largest word. If we follow the index of the largest 
+    eigen value and find the eigen vectors in the column of that index,
+    we'll get the x and y coordinates of it's centre."""
     y = eigenvectors[1,max_index]
     x = eigenvectors[0,max_index]
 
