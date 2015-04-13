@@ -91,6 +91,9 @@ def skew_correction(img):
     for c in contours:
         areas = cv2.contourArea(c) 
         total_area = total_area + cv2.contourArea(c)
+        
+    areas = [cv2.contourArea(c) for c in contours]
+    print total_area
     max_index = np.argmax(areas)
     cnt=contours[max_index]
     
@@ -113,7 +116,7 @@ def skew_correction(img):
 
     matrix = np.array(all_white_pixels)
     
-    e in    """Finding covariance matrix"""
+    """Finding covariance matrix"""
     C = np.cov(matrix.T)
 
     eigenvalues, eigenvectors = np.linalg.eig(C)
