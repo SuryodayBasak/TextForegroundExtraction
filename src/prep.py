@@ -109,6 +109,9 @@ def skew_correction(img):
     We'll rotate the entire image accordingly"""
     
     cv2.drawContours(largest_contour, contours, max_index, (255,255,255), 2)
+    
+    """Displaying largest contour"""
+    cv2.imshow("Largest",largest_contour)
 
     height, width = largest_contour.shape[:2]
 
