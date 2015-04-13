@@ -85,15 +85,18 @@ def skew_correction(img):
     largest_contour = np.zeros(img.shape[:2],np.uint8)
     
     total_area = 0
+    area_count = 0
     binary = binary_img(img)
     contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #areas = [cv2.contourArea(c) for c in contours]
     for c in contours:
         areas = cv2.contourArea(c) 
         total_area = total_area + cv2.contourArea(c)
+        area_count+=1
         
     areas = [cv2.contourArea(c) for c in contours]
     print total_area
+    mean_area = total_area/area_count
     max_index = np.argmax(areas)
     cnt=contours[max_index]
     
