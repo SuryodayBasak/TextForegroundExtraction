@@ -95,8 +95,10 @@ def skew_correction(img):
         area_count+=1
         
     areas = [cv2.contourArea(c) for c in contours]
+    print areas 
     print total_area
     mean_area = total_area/area_count
+    print mean_area
     max_index = np.argmax(areas)
     cnt=contours[max_index]
     
