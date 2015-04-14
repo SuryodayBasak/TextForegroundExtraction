@@ -20,7 +20,8 @@ sobely = cv2.dilate(sobely,kernel,iterations = 1)
 
 cv2.imshow('sobely', sobely)
 
-contours, hierarchy = cv2.findContours(sobely,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+
+contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
     #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #areas = [cv2.contourArea(c) for c in contours]
