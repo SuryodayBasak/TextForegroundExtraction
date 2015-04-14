@@ -88,6 +88,8 @@ def skew_correction(img):
     area_count = 0
     binary = binary_img(img)
     contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    
+    #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #areas = [cv2.contourArea(c) for c in contours]
     for c in contours:
         areas = cv2.contourArea(c) 
