@@ -9,7 +9,7 @@ import cv2
 import prep
 kernel = np.ones((5,5),np.uint8)
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
 dst = img
 largest_contour = np.zeros(img.shape[:2],np.uint8)
 
@@ -22,8 +22,8 @@ sobely = cv2.dilate(sobely,kernel,iterations = 1)
 
 cv2.imshow('sobely', sobely)
 
-
-contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+print type(sobely)
+contours, hierarchy = cv2.findContours(sobely,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
     #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #areas = [cv2.contourArea(c) for c in contours]
