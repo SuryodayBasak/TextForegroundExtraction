@@ -10,6 +10,7 @@ import prep
 kernel = np.ones((5,5),np.uint8)
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
+largest_contour = np.zeros(img.shape[:2],np.uint8)
 
 laplacian = cv2.Laplacian(img,cv2.CV_64F)
 sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
@@ -25,6 +26,9 @@ contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE
     
     #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #areas = [cv2.contourArea(c) for c in contours]
+total_area=0
+area_count=0
+    
 for c in contours:
     areas = cv2.contourArea(c) 
     total_area = total_area + cv2.contourArea(c)
@@ -72,7 +76,7 @@ angle = (np.arctan2(y,x))*(180/np.pi)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
 dst = cv2.warpAffine(img,M,(width,height))
 
-dst = binary_img(dst)
+dst = prep.binary_img(dst)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
