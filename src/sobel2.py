@@ -10,6 +10,7 @@ import prep
 kernel = np.ones((5,5),np.uint8)
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
+dst = img
 largest_contour = np.zeros(img.shape[:2],np.uint8)
 
 laplacian = cv2.Laplacian(img,cv2.CV_64F)
@@ -72,11 +73,13 @@ y = eigenvectors[1,max_index]
 x = eigenvectors[0,max_index]
 
 angle = (np.arctan2(y,x))*(180/np.pi)
+print angle
 
-M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
-dst = cv2.warpAffine(img,M,(width,height))
+M = cv2.getRotationMatrix2D((width/2,height/2),-(90-angle),1)
+dst = cv2.warpAffine(dst,M,(width,height))
 
-dst = prep.binary_img(dst)
+#dst = prep.binary_img(dst)
+cv2.imshow('dst',dst)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
