@@ -26,11 +26,11 @@ sobely = cv2.dilate(sobely,kernel,iterations = 1)
 """
 
 cv2.imshow('sobely', sobely)
-#cv2.imshow('sobely.jpg', sobely)
+cv2.imwrite('sobely.jpg', sobely)
 
 print type(sobely)
 
-
+sobely = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/WrappingUp/sobely.jpg',0)
 minLineLength = 100
 maxLineGap = 10
 lines = cv2.HoughLinesP(sobely,1,np.pi/180,100,minLineLength,maxLineGap)
