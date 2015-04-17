@@ -26,16 +26,20 @@ sobely = cv2.dilate(sobely,kernel,iterations = 1)
 """
 
 cv2.imshow('sobely', sobely)
-cv2.imwrite('sobely.jpg', sobely)
+#cv2.imwrite('sobely.jpg', sobely)
+
+thresh = 50
+sobely = cv2.threshold(sobely, thresh, 255, cv2.THRESH_BINARY)[1]
+
 
 print type(sobely)
-
+"""
 sobely = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/WrappingUp/sobely.jpg',0)
 minLineLength = 100
 maxLineGap = 10
 lines = cv2.HoughLinesP(sobely,1,np.pi/180,100,minLineLength,maxLineGap)
 
-"""
+
 contours, hierarchy = cv2.findContours(sobely,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
     #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
