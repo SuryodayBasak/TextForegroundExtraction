@@ -23,6 +23,13 @@ sobely = cv2.dilate(sobely,kernel,iterations = 1)
 cv2.imshow('sobely', sobely)
 
 print type(sobely)
+
+
+
+edges = cv2.Canny(gray,50,150,apertureSize = 3)
+minLineLength = 100
+maxLineGap = 10
+"""
 contours, hierarchy = cv2.findContours(sobely,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
     #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -80,6 +87,7 @@ dst = cv2.warpAffine(dst,M,(width,height))
 
 #dst = prep.binary_img(dst)
 cv2.imshow('dst',dst)
+"""
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
