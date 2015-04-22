@@ -10,7 +10,7 @@ import binarization
 import numpy as np
 kernel = np.ones((5,5),np.uint8)
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
 cv2.imshow('original', img)
 largest_contour = np.zeros(img.shape[:2],np.uint8)
 

@@ -11,7 +11,7 @@ import binarization
 
 kernel = np.ones((5,5),np.uint8)
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
 original = img
 img=cv2.medianBlur(img,5)
 largest_contour = np.zeros(img.shape[:2],np.uint8)
@@ -96,7 +96,7 @@ print angle
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
-dst = cv2.warpAffine(img,M,(width,height))
+dst = cv2.warpAffine(original,M,(width,height))
 
 print type(dst)
 
