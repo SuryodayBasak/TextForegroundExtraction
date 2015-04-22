@@ -24,6 +24,11 @@ sobel_8u = np.uint8(abs_sobel64f)
 
 cv2.imshow('sobely',sobel_8u)
 
+new_sobel=cv2.medianBlur(sobel_8u,5)
+cv2.imshow('sobel new',new_sobel)
+new_sobel = 255 - new_sobel
+yay = binarization.binary_img(new_sobel)
+cv2.imshow('yay',yay)
 #contours, hierarchy = cv2.findContours(sobely,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
 cv2.waitKey(0)
