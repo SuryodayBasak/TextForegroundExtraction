@@ -18,12 +18,15 @@ binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
 
 #contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-for c in contours:
+contours, hierarchy = cv2.findContours(binary.copy(),cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+#print contours
+#for c in contours:
+i = 0
+while contours:
     
-    cnt=contours[c]
+    cnt=contours
     largest_contour = np.zeros(img.shape[:2],np.uint8)
-    cv2.drawContours(largest_contour, contours, c, (255,255,255), 2)
+    cv2.drawContours(largest_contour, contours, i, (255,255,255), 2)
     #cv2.imshow('largest', largest_contour)
     #cv2.imwrite('largest.jpg', mask)
 
@@ -51,20 +54,20 @@ for c in contours:
     #print col_mean
 
     C = np.cov(matrix.T)
-    print C
+    #print C
 
     eigenvalues, eigenvectors = np.linalg.eig(C)
 
-    print eigenvalues
-    print eigenvectors
+    #print eigenvalues
+    #print eigenvectors
 
     max_ev = max(eigenvalues)
     max_index =  eigenvalues.argmax(axis=0)
     #print type(eigenvalues)
-    print max_ev
-    print max_index
+    #print max_ev
+    #print max_index
 
-    print (eigenvectors[1,max_index]/eigenvectors[0,max_index])*(180/np.pi)
+    #print (eigenvectors[1,max_index]/eigenvectors[0,max_index])*(180/np.pi)
     #print math.atan2((eigenvectors[1,max_index],eigenvectors[0,max_index]))*(180/np.pi)
 
     y = eigenvectors[1,max_index]
@@ -76,8 +79,9 @@ for c in contours:
     """
     angle = (np.arctan2(y,x))*(180/np.pi)
 
-    print angle
+    #print angle
     all_angles.append(angle)
+    i+=1
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
