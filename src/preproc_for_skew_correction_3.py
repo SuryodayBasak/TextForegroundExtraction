@@ -25,7 +25,7 @@ i = 0
 for i in contours:
     
     largest_contour = np.zeros(img.shape[:2],np.uint8)
-    cv2.drawContours(largest_contour, contours, i, (255,255,255), 2)
+    cv2.drawContours(largest_contour, contours, 0, (255,255,255), 2)
     #cv2.imshow('largest', largest_contour)
     #cv2.imwrite('largest.jpg', mask)
 
@@ -80,8 +80,8 @@ for i in contours:
 
     #print angle
     all_angles.append(angle)
-    #i+=1
-    contours = contours.h_next()
+    i+=1
+    print 'Done' + '$i'
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
