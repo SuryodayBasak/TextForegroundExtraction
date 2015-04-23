@@ -36,8 +36,8 @@ while contours:
 
     all_white_pixels = []
 
-    print height
-    print width
+    #print height
+    #print width
 
     for i in range(0,height):
         for j in range(0,width):
@@ -82,6 +82,7 @@ while contours:
     #print angle
     all_angles.append(angle)
     i+=1
+    contours = contours.h_next()
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
