@@ -17,14 +17,13 @@ all_angles = []
 binary = binarization.binary_img(img)
 cv2.imshow('binary', binary)
 
-#contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-contours, hierarchy = cv2.findContours(binary.copy(),cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+#contours, hierarchy = cv2.findContours(binary.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)[0]
 #print contours
 #for c in contours:
 i = 0
-while contours:
+for i in contours:
     
-    cnt=contours
     largest_contour = np.zeros(img.shape[:2],np.uint8)
     cv2.drawContours(largest_contour, contours, i, (255,255,255), 2)
     #cv2.imshow('largest', largest_contour)
@@ -81,7 +80,7 @@ while contours:
 
     #print angle
     all_angles.append(angle)
-    i+=1
+    #i+=1
     contours = contours.h_next()
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
