@@ -24,16 +24,16 @@ contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIM
 #for c in contours:
 
 print type(contours)
-i = 0
+k = 0
 
 cnt = contours[0]
 upper_bound=len(cnt)
 print upper_bound
 
-for i in range(0,upper_bound):
+for k in range(0,upper_bound):
     
     largest_contour = np.zeros(img.shape[:2],np.uint8)
-    cv2.drawContours(largest_contour, contours, i, (255,255,255), 2)
+    cv2.drawContours(largest_contour, contours, k, (255,255,255), 2)
     #cv2.imshow('largest', largest_contour)
     #cv2.imwrite('largest.jpg', mask)
 
@@ -88,9 +88,9 @@ for i in range(0,upper_bound):
 
     #print angle
     all_angles.append(angle)
-    i+=1
+    k+=1
     print 'Done'
-    print i
+    print k
 
 #M = cv2.getRotationMatrix2D((width/2,height/2),-angle/2,1)
 M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
