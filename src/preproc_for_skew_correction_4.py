@@ -10,7 +10,7 @@ import binarization
 import numpy as np
 kernel = np.ones((5,5),np.uint8)
 
-img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/Kandanu10.jpg',0)
+img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
 cv2.imshow('original', img)
 all_angles = []
 
@@ -35,6 +35,7 @@ for c in contours:
     all_areas.append(area)
     
 print all_areas
+print np.mean(all_areas)
 
 """
 for k in range(0,upper_bound):
