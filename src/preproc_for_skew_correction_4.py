@@ -25,18 +25,26 @@ contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIM
 
 print type(contours)
 k = 0
-all_areas = []
+areas = []
 cnt = contours[0]
 upper_bound=len(contours)
 print upper_bound
 
 for c in contours:
-    area = cv2.contourArea(c)
-    all_areas.append(area)
+    areas.append(cv2.contourArea(c))
     
-print all_areas
-print np.mean(all_areas)
-print np.std(all_areas,axis=0)
+print areas
+mean = np.mean(areas)
+std_dev = np.std(areas)
+print mean
+print std_dev
+
+dev_areas = []
+
+for i in areas:
+    dev_areas.append(i-std_dev)
+    
+print dev_areas
 
 """
 for k in range(0,upper_bound):
