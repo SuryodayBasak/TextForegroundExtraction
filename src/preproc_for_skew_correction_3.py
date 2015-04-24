@@ -27,7 +27,7 @@ print type(contours)
 k = 0
 
 cnt = contours[0]
-upper_bound=len(cnt)
+upper_bound=len(contours)
 print upper_bound
 
 for k in range(0,upper_bound):
