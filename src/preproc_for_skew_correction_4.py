@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Apr 11 19:08:52 2015
+Created on Fri Apr 24 21:35:50 2015
 
 @author: suryo
 """
@@ -25,11 +25,18 @@ contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIM
 
 print type(contours)
 k = 0
-
+all_areas = []
 cnt = contours[0]
 upper_bound=len(contours)
 print upper_bound
 
+for c in contours:
+    area = cv2.contourArea(c)
+    all_areas.append(area)
+    
+print all_areas
+
+"""
 for k in range(0,upper_bound):
     
     largest_contour = np.zeros(img.shape[:2],np.uint8)
@@ -80,10 +87,7 @@ for k in range(0,upper_bound):
     y = eigenvectors[1,max_index]
     x = eigenvectors[0,max_index]
 
-    """
-    y = eigenvectors[max_index,1]
-    x = eigenvectors[max_index,0]
-    """
+
     angle = (np.arctan2(y,x))*(180/np.pi)
 
     print angle
@@ -103,7 +107,7 @@ cv2.imshow('dst', dst)
 dst = binarization.binary_img(dst)
 cv2.imwrite('skewcorrected.jpg',dst)
 
-
+"""
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
