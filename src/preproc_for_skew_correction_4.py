@@ -36,6 +36,7 @@ for c in contours:
     
 print all_areas
 print np.mean(all_areas)
+print np.std(all_areas,axis=0)
 
 """
 for k in range(0,upper_bound):
