@@ -62,7 +62,10 @@ for i in dev_areas:
         g+=1
         #time.sleep(0.001)
 print 'Done'
+
 cv2.imshow('dev', dev_contours)
+sobely = cv2.Sobel(dev_contours,cv2.CV_64F,0,1,ksize=5)
+cv2.imshow('sobel', sobely)
 
 largest_contour = np.zeros(img.shape[:2],np.uint8)
 contours, hierarchy = cv2.findContours(dev_contours,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
