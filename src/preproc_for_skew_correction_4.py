@@ -66,9 +66,12 @@ print 'Done'
 cv2.imshow('dev', dev_contours)
 sobely = cv2.Sobel(dev_contours,cv2.CV_64F,0,1,ksize=5)
 cv2.imshow('sobel', sobely)
+abs_sobel64f = np.absolute(sobely)
+sobel_8u = np.uint8(abs_sobel64f)
 
 largest_contour = np.zeros(img.shape[:2],np.uint8)
-contours, hierarchy = cv2.findContours(dev_contours,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+#contours, hierarchy = cv2.findContours(dev_contours,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(sobel_8u,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 areas = [cv2.contourArea(c) for c in contours]
 max_index = np.argmax(areas)
 #cnt=contours[max_index]
