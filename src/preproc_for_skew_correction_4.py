@@ -12,7 +12,7 @@ import time
 kernel = np.ones((5,5),np.uint8)
 
 img = cv2.imread('/home/suryo/Image_Processing_Exercises/IISC/resources/1.jpg',0)
-#cv2.imshow('original', img)
+cv2.imshow('original', img)
 all_angles = []
 
 binary = binarization.binary_img(img)
