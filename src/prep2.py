@@ -104,7 +104,8 @@ def skew_correction(img):
     for i in dev_areas:
         if((i>(-std_dev)) and (i<=(std_dev))):
             cv2.drawContours(dev_contours, contours, k, (255,255,255), -1)
-                k+=1
+            k+=1
+            
     sobely = cv2.Sobel(dev_contours,cv2.CV_64F,0,1,ksize=5)
     abs_sobel64f = np.absolute(sobely)
     sobel_8u = np.uint8(abs_sobel64f)
