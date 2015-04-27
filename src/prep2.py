@@ -101,6 +101,8 @@ def skew_correction(img):
     for i in areas:
         dev_areas.append(i-std_dev)
         
+    dev_contours = np.zeros(img.shape[:2],np.uint8)
+    
     for i in dev_areas:
         if((i>(-std_dev)) and (i<=(std_dev))):
             cv2.drawContours(dev_contours, contours, k, (255,255,255), -1)
