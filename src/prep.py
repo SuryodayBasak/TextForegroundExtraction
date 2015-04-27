@@ -16,8 +16,7 @@ This python module can perform the following functions:
 import cv2
 import numpy as np
 
-kernel1 = np.ones((5,5),np.uint8)
-kernel2 = np.ones((3,3),np.uint8)
+kernel = np.ones((5,5),np.uint8)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 
 """
@@ -31,14 +30,14 @@ value of (255,255,255), and the background has a value of (0,0,0).
 """
 def binary_img(img):
 
-    img_erode = cv2.dilate(img,kernel1,iterations = 2)
+    img_erode = cv2.dilate(img,kernel,iterations = 2)
     blur=cv2.medianBlur(img,5)
 
     mask1 = np.ones(img.shape[:2],np.uint8)
     """Applying histogram equalization"""
     cl1 = clahe.apply(blur)
 
-    circles_mask = cv2.dilate(cl1,kernel1,iterations = 1)
+    circles_mask = cv2.dilate(cl1,kernel,iterations = 1)
     circles_mask = (255-circles_mask)
 
     thresh = 1
@@ -48,7 +47,7 @@ def binary_img(img):
 
     edges = cv2.bitwise_and(edges,edges,mask=circles_mask) 
 
-    dilation = cv2.dilate(edges,kernel1,iterations = 1)
+    dilation = cv2.dilate(edges,kernel,iterations = 1)
 
     display = cv2.bitwise_and(img,img,mask=dilation) 
 
@@ -82,35 +81,48 @@ to remove any angular skew.
 """
     
 def skew_correction(img):
-    largest_contour = np.zeros(img.shape[:2],np.uint8)
+    areas = []
+    all_angles = []
+    dev_areas = []
+    all_white_pixels = []
+    k = 0
     
-    total_area = 0
-    area_count = 0
     binary = binary_img(img)
     contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    cnt = contours[0]
+    upper_bound=len(contours)
     
-    #contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    #areas = [cv2.contourArea(c) for c in contours]
     for c in contours:
-        areas = cv2.contourArea(c) 
-        total_area = total_area + cv2.contourArea(c)
-        area_count+=1
+        areas.append(cv2.contourArea(c))
         
-    areas = [cv2.contourArea(c) for c in contours]
-    print total_area
-    mean_area = total_area/area_count
-    print mean_area
-    max_index = np.argmax(areas)
-    print 'Max area = '
-    print areas[max_index]
-    cnt=contours[max_index]
+    mean = np.mean(areas)
+    std_dev = np.std(areas)
+    
+    for i in areas:
+        dev_areas.append(i-std_dev)
+        
+    dev_contours = np.zeros(img.shape[:2],np.uint8)
+    
+    for i in dev_areas:
+        if((i>(-std_dev)) and (i<=(std_dev))):
+            cv2.drawContours(dev_contours, contours, k, (255,255,255), -1)
+            k+=1
+            
+    sobely = cv2.Sobel(dev_contours,cv2.CV_64F,0,1,ksize=5)
+    abs_sobel64f = np.absolute(sobely)
+    sobel_8u = np.uint8(abs_sobel64f)
+    
+    largest_contour = np.zeros(img.shape[:2],np.uint8)
     
     """After the next step, we'll have the largest word in the image.
     Since all the words in different lines have to be parallel to each other,
     we'll take the largest word as the reference and find out it's alighment.
     We'll rotate the entire image accordingly"""
     
-    cv2.drawContours(largest_contour, contours, max_index, (255,255,255), 2)
+    contours, hierarchy = cv2.findContours(sobel_8u,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    areas = [cv2.contourArea(c) for c in contours]
+    max_index = np.argmax(areas)
+    cv2.drawContours(largest_contour, contours, max_index, (255,255,255), -1)
     
     """Displaying largest contour"""
     cv2.imshow("Largest",largest_contour)
