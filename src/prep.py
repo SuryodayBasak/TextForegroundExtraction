@@ -22,7 +22,7 @@ clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 """
 Method to binarize an image
 
-Input: RGB image
+Input: Grayscale image
 Output: Binary image
 
 The nature of the output is such that the text(foreground) has a colour 
