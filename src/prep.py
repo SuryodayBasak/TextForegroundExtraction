@@ -82,7 +82,6 @@ to remove any angular skew.
     
 def skew_correction(img):
     areas = []  #stores all the areas of corresponding contours
-    #all_angles = [] #stores all the 
     dev_areas = []  #stores all the areas of the contours within 1st std deviation in terms of area
     largest_white_pixels = [] #stores all the white pixels of the largest contour within 1st std deviation
     k = 0
@@ -95,9 +94,7 @@ def skew_correction(img):
     for c in contours:
         areas.append(cv2.contourArea(c))
         
-    #mean = np.mean(areas)
-    std_dev = np.std(areas)
-    
+    std_dev = np.std(areas)    
     for i in areas:
         dev_areas.append(i-std_dev)
         
@@ -123,9 +120,6 @@ def skew_correction(img):
     areas = [cv2.contourArea(c) for c in contours]
     max_index = np.argmax(areas)
     cv2.drawContours(largest_contour, contours, max_index, (255,255,255), -1)
-    
-    """Displaying largest contour"""
-    cv2.imshow("Largest",largest_contour)
 
     height, width = largest_contour.shape[:2]
 
