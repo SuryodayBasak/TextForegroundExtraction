@@ -81,10 +81,10 @@ to remove any angular skew.
 """
     
 def skew_correction(img):
-    areas = []
-    all_angles = []
-    dev_areas = []
-    all_white_pixels = []
+    areas = []  #stores all the areas of corresponding contours
+    #all_angles = [] #stores all the 
+    dev_areas = []  #stores all the areas of the contours within 1st std deviation in terms of area
+    largest_white_pixels = [] #stores all the white pixels of the largest contour within 1st std deviation
     k = 0
     
     binary = binary_img(img)
@@ -95,7 +95,7 @@ def skew_correction(img):
     for c in contours:
         areas.append(cv2.contourArea(c))
         
-    mean = np.mean(areas)
+    #mean = np.mean(areas)
     std_dev = np.std(areas)
     
     for i in areas:
@@ -134,10 +134,10 @@ def skew_correction(img):
     for i in range(0,height):
         for j in range(0,width):
             if(largest_contour.item(i,j)==255):
-                all_white_pixels.append([i,j])
+                largest_white_pixels.append([i,j])
             
 
-    matrix = np.array(all_white_pixels)
+    matrix = np.array(largest_white_pixels)
     
     """Finding covariance matrix"""
     C = np.cov(matrix.T)
