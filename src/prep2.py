@@ -135,7 +135,7 @@ def skew_correction(img):
                     current_white_pixels.append([i,j])
             
 
-        matrix = np.array(largest_white_pixels)
+        matrix = np.array(current_white_pixels)
     
         """Finding covariance matrix"""
         C = np.cov(matrix.T)
@@ -157,7 +157,9 @@ def skew_correction(img):
         angle = (np.arctan2(y,x))*(180/np.pi)
         all_angles.append(angle)
         contour_count+=1
+        print contour_count
 
+    angle = np.mean(all_angles)
     M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
     dst = cv2.warpAffine(img,M,(width,height))
 
