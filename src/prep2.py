@@ -22,7 +22,7 @@ clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 """
 Method to binarize an image
 
-Input: RGB image
+Input: Grayscale image
 Output: Binary image
 
 The nature of the output is such that the text(foreground) has a colour 
@@ -81,10 +81,9 @@ to remove any angular skew.
 """
     
 def skew_correction(img):
-    areas = []
-    all_angles = []
-    dev_areas = []
-    all_white_pixels = []
+    areas = []  #stores all the areas of corresponding contours
+    dev_areas = []  #stores all the areas of the contours within 1st std deviation in terms of area#stores all the white pixels of the largest contour within 1st std deviation
+    all_angles = []    
     k = 0
     
     binary = binary_img(img)
@@ -95,9 +94,7 @@ def skew_correction(img):
     for c in contours:
         areas.append(cv2.contourArea(c))
         
-    mean = np.mean(areas)
-    std_dev = np.std(areas)
-    
+    std_dev = np.std(areas)    
     for i in areas:
         dev_areas.append(i-std_dev)
         
@@ -120,43 +117,46 @@ def skew_correction(img):
     We'll rotate the entire image accordingly"""
     
     contours, hierarchy = cv2.findContours(sobel_8u,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    areas = [cv2.contourArea(c) for c in contours]
-    max_index = np.argmax(areas)
-    cv2.drawContours(largest_contour, contours, max_index, (255,255,255), -1)
-    
-    """Displaying largest contour"""
-    cv2.imshow("Largest",largest_contour)
+   
+    contour_count=0;   
+    for c in contours:
+        #max_index = np.argmax(areas)
+        current_contour = np.zeros(img.shape[:2],np.uint8)
+        cv2.drawContours(current_contour, contours, contour_count, (255,255,255), -1)
 
-    height, width = largest_contour.shape[:2]
+        height, width = largest_contour.shape[:2]
 
-    all_white_pixels = []
+        all_white_pixels = []
+        current_white_pixels = [] 
 
-    for i in range(0,height):
-        for j in range(0,width):
-            if(largest_contour.item(i,j)==255):
-                all_white_pixels.append([i,j])
+        for i in range(0,height):
+            for j in range(0,width):
+                if(current_contour.item(i,j)==255):
+                    current_white_pixels.append([i,j])
             
 
-    matrix = np.array(all_white_pixels)
+        matrix = np.array(largest_white_pixels)
     
-    """Finding covariance matrix"""
-    C = np.cov(matrix.T)
+        """Finding covariance matrix"""
+        C = np.cov(matrix.T)
 
-    eigenvalues, eigenvectors = np.linalg.eig(C)
+        eigenvalues, eigenvectors = np.linalg.eig(C)
 
-    """Finding max eigenvalue"""
-    max_ev = max(eigenvalues)
-    """Finding index of max eigenvalue"""
-    max_index =  eigenvalues.argmax(axis=0)
+        """Finding max eigenvalue"""
+        max_ev = max(eigenvalues)
+        """Finding index of max eigenvalue"""
+        max_index =  eigenvalues.argmax(axis=0)
 
-    """The largest eigen value gives the approximate length of the bounding
-    ellipse around the largest word. If we follow the index of the largest 
-    eigen value and find the eigen vectors in the column of that index,
-    we'll get the x and y coordinates of it's centre."""
-    y = eigenvectors[1,max_index]
-    x = eigenvectors[0,max_index]
+        """The largest eigen value gives the approximate length of the bounding
+        ellipse around the largest word. If we follow the index of the largest 
+        eigen value and find the eigen vectors in the column of that index,
+        we'll get the x and y coordinates of it's centre."""
+        y = eigenvectors[1,max_index]
+        x = eigenvectors[0,max_index]
 
-    angle = (np.arctan2(y,x))*(180/np.pi)
+        angle = (np.arctan2(y,x))*(180/np.pi)
+        all_angles.append(angle)
+        contour_count+=1
 
     M = cv2.getRotationMatrix2D((width/2,height/2),-(90+angle),1)
     dst = cv2.warpAffine(img,M,(width,height))
